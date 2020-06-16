@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
 using Amazon;
 using Amazon.Lambda.Core;
 using Amazon.Runtime;
@@ -7,10 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Npgsql;
 using S3ToPostgresDataPipeline.Database;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
 
 // Assembly attribute to enable the Lambda function's JSON input to be
 // converted into a .NET class.
@@ -29,7 +29,7 @@ namespace S3ToPostgresDataPipeline
     public class Handler
     {
         private IDatabaseActions _databaseActions;
-        
+
         public Handler(IDatabaseActions databaseActions)
         {
             _databaseActions = databaseActions;
@@ -45,14 +45,14 @@ namespace S3ToPostgresDataPipeline
                 var connection = _databaseActions.SetupDatabase(context);
                 foreach (var record in s3Event.Records)
                 {
-                   LambdaLogger.Log("Inside of the s3 events loop");
+                    LambdaLogger.Log("Inside of the s3 events loop");
                     var s3 = record.S3;
                     try
                     {
                         //truncate correct table
-                        _databaseActions.TruncateTable(context,Environment.GetEnvironmentVariable("DB_TABLE_NAME"));
+                        _databaseActions.TruncateTable(context, Environment.GetEnvironmentVariable("DB_TABLE_NAME"));
                         // load csv data into table
-                        _databaseActions.CopyDataToDatabase(context, record.AwsRegion, s3.Bucket.Name, s3.Object.Key);                   
+                        _databaseActions.CopyDataToDatabase(context, record.AwsRegion, s3.Bucket.Name, s3.Object.Key);
                     }
                     catch (NpgsqlException ex)
                     {
@@ -64,7 +64,7 @@ namespace S3ToPostgresDataPipeline
                     LambdaLogger.Log("End of function");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LambdaLogger.Log($"Exception has occurred - {ex.Message} {ex.InnerException} {ex.StackTrace}");
                 throw ex;

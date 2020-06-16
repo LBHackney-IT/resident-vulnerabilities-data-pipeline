@@ -17,7 +17,7 @@ namespace S3ToPostgresDataPipeline.Tests
 
             var databaseActions = new DatabaseActions();
             var dbConnection = databaseActions.SetupDatabase(contextMock.Object);
-           
+
             //create and insert data to test against
             var npgsqlCommand = dbConnection.CreateCommand();
             var truncateTableQuery = @"CREATE TABLE test (id, int);";

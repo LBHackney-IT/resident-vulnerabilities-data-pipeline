@@ -1,9 +1,9 @@
-﻿using Amazon.Lambda.Core;
-using Npgsql;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.Lambda.Core;
+using Npgsql;
 
 namespace S3ToPostgresDataPipeline.Database
 {
@@ -30,16 +30,16 @@ namespace S3ToPostgresDataPipeline.Database
             return rowsAffected;
         }
 
-        public int TruncateTable(ILambdaContext context,string tableName)
+        public int TruncateTable(ILambdaContext context, string tableName)
         {
-            var npgsqlCommand = _npgsqlConnection.CreateCommand();             
+            var npgsqlCommand = _npgsqlConnection.CreateCommand();
             LambdaLogger.Log($"Table name to truncate {tableName}");
             //TODO improve security in below line
-            var truncateTableQuery =$"TRUNCATE TABLE {tableName};";
+            var truncateTableQuery = $"TRUNCATE TABLE {tableName};";
             npgsqlCommand.CommandText = truncateTableQuery;
             var rowsAffected = npgsqlCommand.ExecuteNonQuery();
 
-            return rowsAffected;              
+            return rowsAffected;
         }
         public NpgsqlConnection SetupDatabase(ILambdaContext context)
         {

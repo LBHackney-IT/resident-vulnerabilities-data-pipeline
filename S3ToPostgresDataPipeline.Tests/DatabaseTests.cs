@@ -20,7 +20,7 @@ namespace S3ToPostgresDataPipeline.Tests
 
             //create and insert data to test against
             var npgsqlCommand = dbConnection.CreateCommand();
-            var truncateTableQuery = @"CREATE TABLE test (id int);";
+            var truncateTableQuery = @"CREATE TABLE IF NOT EXISTS test (id int);";
             npgsqlCommand.CommandText = truncateTableQuery;
             npgsqlCommand.ExecuteNonQuery();
 

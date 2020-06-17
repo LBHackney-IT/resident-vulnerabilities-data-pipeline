@@ -9,7 +9,7 @@ namespace S3ToPostgresDataPipeline.Database
 {
     public interface IDatabaseActions
     {
-        int TruncateTable(ILambdaContext context, string tableName);
+        void TruncateTable(ILambdaContext context, string tableName);
         int CopyDataToDatabase(ILambdaContext context, string awsRegion, string bucketName, string objectKey);
         NpgsqlConnection SetupDatabase(ILambdaContext context);
     }

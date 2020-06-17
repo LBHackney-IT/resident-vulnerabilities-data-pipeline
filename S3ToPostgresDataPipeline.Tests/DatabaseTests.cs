@@ -1,3 +1,4 @@
+using System;
 using Amazon.Lambda.Core;
 using FluentAssertions;
 using Moq;
@@ -10,38 +11,58 @@ namespace S3ToPostgresDataPipeline.Tests
     [TestFixture]
     public class DatabaseTests
     {
-        [Test]
-        public void CanTruncateTable()
+        private Mock<ILambdaContext> _contextMock;
+        private DatabaseActions _databaseActions;
+        private NpgsqlConnection _dbConnection;
+
+        [SetUp]
+        public void Setup()
         {
-            var contextMock = new Mock<ILambdaContext>();
-
-            var databaseActions = new DatabaseActions();
-            var dbConnection = databaseActions.SetupDatabase(contextMock.Object);
-
-            //create and insert data to test against
-            var npgsqlCommand = dbConnection.CreateCommand();
-            var truncateTableQuery = @"CREATE TABLE IF NOT EXISTS test (id int);";
-            npgsqlCommand.CommandText = truncateTableQuery;
-            npgsqlCommand.ExecuteNonQuery();
-
-            npgsqlCommand.CommandText = @"INSERT INTO test values (1);";
-            npgsqlCommand.ExecuteNonQuery();
-
-            var result = databaseActions.TruncateTable(contextMock.Object, "test");
-
-            result.Should().Be(1);
+            _contextMock = new Mock<ILambdaContext>();
+            _databaseActions = new DatabaseActions();
+            _dbConnection = _databaseActions.SetupDatabase(_contextMock.Object);
         }
 
         [Test]
         public void CanSetupDatabaseConnection()
         {
-            var contextMock = new Mock<ILambdaContext>();
-            var databaseActions = new DatabaseActions();
+            _dbConnection.Should().NotBeNull();
+            _dbConnection.Should().BeOfType<NpgsqlConnection>();
+        }
 
-            var result = databaseActions.SetupDatabase(contextMock.Object);
+        [Test]
+        public void CanTruncateTable()
+        {
+            //create and insert data to test against
+            var npgsqlCommand = _dbConnection.CreateCommand();
+            npgsqlCommand.CommandText = @"CREATE TABLE IF NOT EXISTS test (id int);";
+            npgsqlCommand.ExecuteNonQuery();
 
-            result.Should().NotBeNull();
-            result.Should().BeOfType<NpgsqlConnection>();
+            npgsqlCommand.CommandText = @"INSERT INTO test values (1);";
+            npgsqlCommand.ExecuteNonQuery();
+
+            CountRows().Should().Be(1);
+
+            _databaseActions.TruncateTable(_contextMock.Object, "test");
+            CountRows().Should().Be(0);
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            var npgsqlCommand = _dbConnection.CreateCommand();
+            npgsqlCommand.CommandText = @"DROP TABLE IF EXISTS test;";
+            npgsqlCommand.ExecuteNonQuery();
+        }
+
+        private long CountRows()
+        {
+            var npgsqlCommand = _dbConnection.CreateCommand();
+            npgsqlCommand.CommandText = @"SELECT COUNT(*) FROM test;";
+
+            var result = npgsqlCommand.ExecuteScalar();
+
+            return Convert.ToInt64(result);
         }
 
         //TODO test for inserting data into Postgres

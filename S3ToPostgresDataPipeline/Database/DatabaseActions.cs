@@ -30,17 +30,15 @@ namespace S3ToPostgresDataPipeline.Database
             return rowsAffected;
         }
 
-        public int TruncateTable(ILambdaContext context, string tableName)
+        public void TruncateTable(ILambdaContext context, string tableName)
         {
             var npgsqlCommand = _npgsqlConnection.CreateCommand();
             LambdaLogger.Log($"Table name to truncate {tableName}");
             //TODO improve security in below line
-            var truncateTableQuery = $"TRUNCATE TABLE {tableName};";
-            npgsqlCommand.CommandText = truncateTableQuery;
-            var rowsAffected = npgsqlCommand.ExecuteNonQuery();
-
-            return rowsAffected;
+            npgsqlCommand.CommandText = $"TRUNCATE TABLE {tableName};";
+            npgsqlCommand.ExecuteNonQuery();
         }
+
         public NpgsqlConnection SetupDatabase(ILambdaContext context)
         {
             LambdaLogger.Log("set up DB");

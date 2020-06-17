@@ -10,14 +10,14 @@ using Amazon.S3.Util;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Npgsql;
-using S3ToPostgresDataPipeline.Database;
+using ResidentVulnerabilitiesDataPipeline.Database;
 
 // Assembly attribute to enable the Lambda function's JSON input to be
 // converted into a .NET class.
 [assembly: LambdaSerializer(
     typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
 
-namespace S3ToPostgresDataPipeline
+namespace ResidentVulnerabilitiesDataPipeline
 {
     public static class Program
     {

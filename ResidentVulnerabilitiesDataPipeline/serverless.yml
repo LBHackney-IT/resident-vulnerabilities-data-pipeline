@@ -11,10 +11,10 @@ package:
 
 functions:
   load-csv:
-    handler: S3ToPostgresDataPipeline::S3ToPostgresDataPipeline.Handler::LoadCsv
+    handler: ResidentVulnerabilitiesDataPipeline::ResidentVulnerabilitiesDataPipeline.Handler::LoadCsv
     role: dataPipelineLambdaExecutionRole
     package:
-      artifact: bin/release/netcoreapp3.1/S3ToPostgresDataPipeline.zip
+      artifact: bin/release/netcoreapp3.1/ResidentVulnerabilitiesDataPipeline.zip
     events:
       - s3:
           bucket: drop-bucket-csv-to-postgres

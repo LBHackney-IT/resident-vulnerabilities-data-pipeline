@@ -20,11 +20,11 @@ namespace S3ToPostgresDataPipeline.Tests
 
             //create and insert data to test against
             var npgsqlCommand = dbConnection.CreateCommand();
-            var truncateTableQuery = @"CREATE TABLE test (id, int);";
+            var truncateTableQuery = @"CREATE TABLE test (id int);";
             npgsqlCommand.CommandText = truncateTableQuery;
             npgsqlCommand.ExecuteNonQuery();
 
-            npgsqlCommand.CommandText = @"INSERT INTO test values (id, 1)";
+            npgsqlCommand.CommandText = @"INSERT INTO test values (1);";
             npgsqlCommand.ExecuteNonQuery();
 
             var result = databaseActions.TruncateTable(contextMock.Object, "test");

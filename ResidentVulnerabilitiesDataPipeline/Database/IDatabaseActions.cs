@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Npgsql;
 
-namespace S3ToPostgresDataPipeline.Database
+namespace ResidentVulnerabilitiesDataPipeline.Database
 {
     public interface IDatabaseActions
     {

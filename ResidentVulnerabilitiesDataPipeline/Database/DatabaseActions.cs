@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Npgsql;
 
-namespace S3ToPostgresDataPipeline.Database
+namespace ResidentVulnerabilitiesDataPipeline.Database
 {
     public class DatabaseActions : IDatabaseActions
     {
@@ -46,7 +46,7 @@ namespace S3ToPostgresDataPipeline.Database
                 $"Port={Environment.GetEnvironmentVariable("DB_PORT") ?? "5432"};" +
                 $"Username={Environment.GetEnvironmentVariable("DB_USERNAME") ?? "postgres"};" +
                 $"Password={Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "password"};" +
-                $"Database={Environment.GetEnvironmentVariable("DB_DATABASE") ?? "s3-to-postgres-data-pipeline-test-db"}" + ";CommandTimeout=120;";
+                $"Database={Environment.GetEnvironmentVariable("DB_DATABASE") ?? "resident-vulnerabilities-data-pipeline-test-db"}" + ";CommandTimeout=120;";
             try
             {
                 var connection = new NpgsqlConnection(connString);

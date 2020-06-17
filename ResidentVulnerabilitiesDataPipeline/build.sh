@@ -7,7 +7,6 @@ then
   apt -qq -y install zip
 fi
 
-#dotnet restore
 dotnet tool install --global Amazon.Lambda.Tools --version 4.0.0
 
 
@@ -18,4 +17,4 @@ then
 fi
 
 dotnet restore
-dotnet lambda package --configuration Debug --framework netcoreapp3.1 --output-package bin/release/netcoreapp3.1/S3ToPostgresDataPipeline.zip
+dotnet lambda package --configuration Debug --framework netcoreapp3.1 --output-package bin/release/netcoreapp3.1/ResidentVulnerabilitiesDataPipeline.zip

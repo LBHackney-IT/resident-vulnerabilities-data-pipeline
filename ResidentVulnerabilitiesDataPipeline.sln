@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3ToPostgresDataPipeline", "S3ToPostgresDataPipeline\S3ToPostgresDataPipeline.csproj", "{B73E4DC6-630D-4B35-BF71-FA061E5D3C9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResidentVulnerabilitiesDataPipeline", "ResidentVulnerabilitiesDataPipeline\ResidentVulnerabilitiesDataPipeline.csproj", "{B73E4DC6-630D-4B35-BF71-FA061E5D3C9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3ToPostgresDataPipeline.Tests", "S3ToPostgresDataPipeline.Tests\S3ToPostgresDataPipeline.Tests.csproj", "{B6C82C23-20BC-4A34-96E2-1F0E12F7C972}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResidentVulnerabilitiesDataPipeline.Tests", "ResidentVulnerabilitiesDataPipeline.Tests\ResidentVulnerabilitiesDataPipeline.Tests.csproj", "{B6C82C23-20BC-4A34-96E2-1F0E12F7C972}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

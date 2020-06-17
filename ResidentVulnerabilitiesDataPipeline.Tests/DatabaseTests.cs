@@ -4,9 +4,9 @@ using FluentAssertions;
 using Moq;
 using Npgsql;
 using NUnit.Framework;
-using S3ToPostgresDataPipeline.Database;
+using ResidentVulnerabilitiesDataPipeline.Database;
 
-namespace S3ToPostgresDataPipeline.Tests
+namespace ResidentVulnerabilitiesDataPipeline.Tests
 {
     [TestFixture]
     public class DatabaseTests

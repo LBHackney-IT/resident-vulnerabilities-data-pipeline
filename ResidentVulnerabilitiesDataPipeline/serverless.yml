@@ -17,7 +17,7 @@ functions:
       artifact: bin/release/netcoreapp3.1/ResidentVulnerabilitiesDataPipeline.zip
     events:
       - s3:
-          bucket: drop-bucket-csv-to-postgres
+          bucket: ${self:custom.bucketName.${opt:stage}}
           event: s3:ObjectCreated:*
           rules:
             - suffix: .csv
@@ -85,3 +85,7 @@ custom:
       subnetIds:
         - subnet-01d3657f97a243261
         - subnet-0b7b8fea07efabf34
+  bucketName:
+    development: drop-bucket-csv-to-postgres
+    staging: qlik-bucket-csv-to-postgres-staging
+    production: qlik-bucket-csv-to-postgres-production

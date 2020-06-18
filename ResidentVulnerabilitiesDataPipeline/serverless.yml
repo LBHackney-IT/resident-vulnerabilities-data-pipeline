@@ -1,4 +1,4 @@
-service: qlikDataMigration
+service: vulnerabilitiesDataMigration
 provider:
   name: aws
   region: eu-west-2
@@ -28,7 +28,7 @@ resources:
       Type: AWS::IAM::Role
       Properties:
         Path: /${self:service}/${self:provider.stage}/
-        RoleName: dataPipelineLambdaExecutionRole
+        RoleName: ${self:service}-dataPipelineLambdaExecutionRole
         AssumeRolePolicyDocument:
           Version: '2012-10-17'
           Statement:

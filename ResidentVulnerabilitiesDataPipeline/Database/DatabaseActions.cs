@@ -15,7 +15,7 @@ namespace ResidentVulnerabilitiesDataPipeline.Database
         {
             var loadDataCommand = _npgsqlConnection.CreateCommand();
 
-            var loadDataFromCSV = @"SELECT aws_s3.table_import_from_s3('qlik_vulnerability','','(FORMAT csv, HEADER)',@bucket, @objectkey, @awsregion);";
+            var loadDataFromCSV = @"SET datestyle = 'DMY'; SELECT aws_s3.table_import_from_s3('qlik_vulnerability','','(FORMAT csv, HEADER)',@bucket, @objectkey, @awsregion);";
             loadDataCommand.CommandText = loadDataFromCSV;
             loadDataCommand.Parameters.AddWithValue("bucket", bucketName);
             loadDataCommand.Parameters.AddWithValue("objectkey", objectKey);

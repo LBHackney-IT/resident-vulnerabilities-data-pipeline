@@ -73,7 +73,7 @@ jobs:
           command: dotnet tool install dotnet-format --tool-path ./dotnet-format-local/
       - run:
           name: Run formatter check
-          command: ./dotnet-format-local/dotnet-format --dry-run --check
+          command: ./dotnet-format-local/dotnet-format --check
   build-and-test:
     executor: docker-python
     steps:
@@ -121,10 +121,17 @@ workflows:
     jobs:
       - check-code-formatting
       - build-and-test
+      - permit-development-release:
+          type: approval
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: development
       - assume-role-development:
           context: api-assume-role-development-context
           requires:
-            - build-and-test
+            - permit-development-release
           filters:
             branches:
               only: development
@@ -140,10 +147,17 @@ workflows:
           filters:
             branches:
               only: master
+      - permit-staging-release:
+          type: approval
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: master
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
-              - build-and-test
+              - permit-staging-release
           filters:
              branches:
                only: master

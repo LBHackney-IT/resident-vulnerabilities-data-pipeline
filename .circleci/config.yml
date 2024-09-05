@@ -63,11 +63,11 @@ commands:
             fi
 
 jobs:
-  deploy-to-staging:
-    executor: docker-dotnet
+  assume-role-production:
+    executor: docker-python
     steps:
-      - deploy-lambda:
-          stage: 'staging'
+      - assume-role-and-persist-workspace:
+          aws-account: $AWS_ACCOUNT_PRODUCTION
   deploy-to-production:
     executor: docker-dotnet
     steps:

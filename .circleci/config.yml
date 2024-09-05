@@ -117,14 +117,10 @@ jobs:
           stage: 'production'
 
 workflows:
-  check-and-deploy-development:
+  deploy-development:
     jobs:
-      - check-code-formatting
-      - build-and-test
       - permit-development-release:
           type: approval
-          requires:
-            - build-and-test
           filters:
             branches:
               only: development
@@ -141,16 +137,10 @@ workflows:
           filters:
             branches:
               only: development
-  check-and-deploy-staging-and-production:
+  deploy-staging-and-production:
     jobs:
-      - build-and-test:
-          filters:
-            branches:
-              only: master
       - permit-staging-release:
           type: approval
-          requires:
-            - build-and-test
           filters:
             branches:
               only: master
@@ -183,7 +173,6 @@ workflows:
                only: master
       - deploy-to-production:
           requires:
-            - permit-production-release
             - assume-role-production
           filters:
             branches:

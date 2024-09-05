@@ -63,16 +63,6 @@ commands:
             fi
 
 jobs:
-  assume-role-staging:
-    executor: docker-python
-    steps:
-      - assume-role-and-persist-workspace:
-          aws-account: $AWS_ACCOUNT_STAGING
-  assume-role-production:
-    executor: docker-python
-    steps:
-      - assume-role-and-persist-workspace:
-          aws-account: $AWS_ACCOUNT_PRODUCTION
   deploy-to-staging:
     executor: docker-dotnet
     steps:
@@ -85,27 +75,8 @@ jobs:
           stage: 'production'
 
 workflows:
-  deploy-staging-and-production:
+  deploy-production:
     jobs:
-      - permit-staging-release:
-          type: approval
-          filters:
-            branches:
-              only: master
-      - assume-role-staging:
-          context: api-assume-role-staging-context
-          requires:
-              - permit-staging-release
-          filters:
-             branches:
-               only: master
-      - deploy-to-staging:
-          requires:
-            - assume-role-staging
-          filters:
-            branches:
-              only: master
-
       - permit-production-release:
           type: approval
           filters:

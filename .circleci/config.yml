@@ -110,7 +110,7 @@ workflows:
           filters:
             branches:
               only: development
-#
+
       - permit-staging-release:
           type: approval
           filters:
@@ -129,10 +129,9 @@ workflows:
           filters:
             branches:
               only: master
+
       - permit-production-release:
           type: approval
-          requires:
-            - deploy-to-staging
           filters:
             branches:
               only: master

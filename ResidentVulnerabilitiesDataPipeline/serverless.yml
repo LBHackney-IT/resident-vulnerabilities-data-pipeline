@@ -75,11 +75,6 @@ resources:
                         - "Ref": "ServerlessDeploymentBucket"
 custom:
   vpc:
-    development:
-      securityGroupIds:
-        - sg-0a457bf4e6eda31de
-      subnetIds:
-        - subnet-000b89c249f12a8ad
     staging:
       securityGroupIds:
         - sg-04fa13c6d25c5f5cc
@@ -93,6 +88,5 @@ custom:
         - subnet-01d3657f97a243261
         - subnet-0b7b8fea07efabf34
   bucketName:
-    development: drop-bucket-csv-to-postgres
     staging: qlik-bucket-csv-to-postgres-staging
     production: qlik-bucket-csv-to-postgres-production

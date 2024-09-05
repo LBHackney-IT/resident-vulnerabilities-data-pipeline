@@ -1,3 +1,9 @@
+# Resident Vulnerabilities Data Pipeline
+
+This application and its cloud resources have been decommissioned.
+
+<!--
+
 # S3 to Postgres Data Pipeline Template
 
 A lambda function that is called when a CSV file is added to an S3 bucket.
@@ -56,3 +62,4 @@ The following environment variables will need to be set within your Lambda funct
 ## Deploying the application
 
 Deployment jobs are included in the CircleCI workflow configuration.
+-->

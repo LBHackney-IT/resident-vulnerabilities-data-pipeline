@@ -52,12 +52,6 @@ commands:
           name: Install serverless CLI
           command: npm i -g serverless
       - run:
-          name: Build lambda
-          command: |
-            cd ./ResidentVulnerabilitiesDataPipeline/
-            chmod +x ./build.sh
-            ./build.sh
-      - run:
           name: Deploy lambda
           command: |
             cd ./ResidentVulnerabilitiesDataPipeline/

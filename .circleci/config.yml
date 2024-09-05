@@ -90,7 +90,7 @@ jobs:
           stage: 'production'
 
 workflows:
-  deploy-development:
+  deploy-staging-and-production:
     jobs:
       - permit-development-release:
           type: approval
@@ -110,8 +110,7 @@ workflows:
           filters:
             branches:
               only: development
-  deploy-staging-and-production:
-    jobs:
+#
       - permit-staging-release:
           type: approval
           filters:

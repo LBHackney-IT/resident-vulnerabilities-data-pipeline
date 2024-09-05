@@ -63,11 +63,6 @@ commands:
             fi
 
 jobs:
-  assume-role-development:
-    executor: docker-python
-    steps:
-      - assume-role-and-persist-workspace:
-          aws-account: $AWS_ACCOUNT_DEVELOPMENT
   assume-role-staging:
     executor: docker-python
     steps:
@@ -78,11 +73,6 @@ jobs:
     steps:
       - assume-role-and-persist-workspace:
           aws-account: $AWS_ACCOUNT_PRODUCTION
-  deploy-to-development:
-    executor: docker-dotnet
-    steps:
-      - deploy-lambda:
-          stage: 'development'
   deploy-to-staging:
     executor: docker-dotnet
     steps:
@@ -97,25 +87,6 @@ jobs:
 workflows:
   deploy-staging-and-production:
     jobs:
-      - permit-development-release:
-          type: approval
-          filters:
-            branches:
-              only: master
-      - assume-role-development:
-          context: api-assume-role-development-context
-          requires:
-            - permit-development-release
-          filters:
-            branches:
-              only: master
-      - deploy-to-development:
-          requires:
-            - assume-role-development
-          filters:
-            branches:
-              only: master
-
       - permit-staging-release:
           type: approval
           filters:

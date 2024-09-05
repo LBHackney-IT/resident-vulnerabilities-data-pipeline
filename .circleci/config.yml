@@ -55,7 +55,7 @@ commands:
           name: Deploy lambda
           command: |
             cd ./ResidentVulnerabilitiesDataPipeline/
-            if [ "<<parameters.stage>>" = "development" ]
+            if [ "<<parameters.stage>>" = "staging" ]
             then
               sls remove --stage <<parameters.stage>> --verbose
             else
